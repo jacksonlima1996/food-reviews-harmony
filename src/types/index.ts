@@ -16,3 +16,13 @@ export interface Store {
   averageRating: number;
   reviewCount: number;
 }
+
+export interface BagOffer {
+  id: string;
+  name: string;
+  price: number;
+  originalPrice: number;
+  discount: number;
+  description: string;
+  imageUrl: string;
+}

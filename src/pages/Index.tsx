@@ -3,14 +3,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import StoreHeader from '@/components/StoreHeader';
 import AnimatedRating from '@/components/AnimatedRating';
-import { mockStore } from '@/data/mockData';
+import BagCard from '@/components/BagCard';
+import { mockStore, mockBags } from '@/data/mockData';
 import { ChevronRight } from 'lucide-react';
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-screen-md mx-auto px-4 py-8">
-        <div className="glass-card rounded-xl p-6 shadow-sm relative overflow-hidden">
+        <div className="glass-card rounded-xl p-6 shadow-sm relative overflow-hidden mb-6">
           {/* Decorative element */}
           <div className="absolute -top-20 -right-20 w-40 h-40 bg-food-orange opacity-5 rounded-full"></div>
           
@@ -28,7 +29,7 @@ const Index = () => {
           <div className="space-y-4">
             <h2 className="text-lg font-semibold">Sobre o estabelecimento</h2>
             <p className="text-gray-600">
-              Somos um mercado comprometido em reduzir o desperdício de alimentos 
+              Somos uma padaria artesanal comprometida em reduzir o desperdício de alimentos 
               oferecendo produtos de qualidade que estão próximos do vencimento a 
               preços reduzidos. Nossa missão é contribuir para um mundo mais 
               sustentável enquanto proporcionamos economia para nossos clientes.
@@ -53,6 +54,15 @@ const Index = () => {
                 <ChevronRight size={16} className="ml-1" />
               </Link>
             </div>
+          </div>
+        </div>
+        
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold mb-4">Sacolas Disponíveis</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {mockBags.map((bag) => (
+              <BagCard key={bag.id} bag={bag} />
+            ))}
           </div>
         </div>
       </div>
