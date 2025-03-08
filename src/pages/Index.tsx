@@ -1,11 +1,60 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import StoreHeader from '@/components/StoreHeader';
+import AnimatedRating from '@/components/AnimatedRating';
+import { mockStore } from '@/data/mockData';
+import { ChevronRight } from 'lucide-react';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      <div className="max-w-screen-md mx-auto px-4 py-8">
+        <div className="glass-card rounded-xl p-6 shadow-sm relative overflow-hidden">
+          {/* Decorative element */}
+          <div className="absolute -top-20 -right-20 w-40 h-40 bg-food-orange opacity-5 rounded-full"></div>
+          
+          <h1 className="text-2xl font-bold mb-6 relative">
+            Food to Save
+            <div className="h-1 w-12 bg-food-orange mt-2 rounded-full"></div>
+          </h1>
+          
+          <div className="mb-6">
+            <StoreHeader store={mockStore} />
+          </div>
+          
+          <div className="h-px bg-gray-100 my-6"></div>
+          
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold">Sobre o estabelecimento</h2>
+            <p className="text-gray-600">
+              Somos um mercado comprometido em reduzir o desperdício de alimentos 
+              oferecendo produtos de qualidade que estão próximos do vencimento a 
+              preços reduzidos. Nossa missão é contribuir para um mundo mais 
+              sustentável enquanto proporcionamos economia para nossos clientes.
+            </p>
+            
+            <div className="flex justify-between items-center mt-6">
+              <div className="flex items-center gap-2">
+                <AnimatedRating 
+                  rating={mockStore.averageRating} 
+                  className="flex-shrink-0"
+                />
+                <span className="text-gray-600 text-sm">
+                  ({mockStore.averageRating.toFixed(1)}) • {mockStore.reviewCount} avaliações
+                </span>
+              </div>
+              
+              <Link 
+                to="/reviews" 
+                className="inline-flex items-center justify-center rounded-xl bg-food-orange px-5 py-2 font-medium text-white transition-all hover:bg-food-orange-dark focus:outline-none focus:ring-2 focus:ring-food-orange focus:ring-offset-2 animate-fade-in"
+              >
+                <span>Ver Avaliações</span>
+                <ChevronRight size={16} className="ml-1" />
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
