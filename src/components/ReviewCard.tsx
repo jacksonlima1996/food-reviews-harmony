@@ -50,16 +50,16 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review, index }) => {
           {review.imageUrl && (
             <Dialog>
               <DialogTrigger asChild>
-                <div className="mt-3 img-hover-zoom cursor-pointer overflow-hidden rounded-lg max-w-[120px] h-[90px]">
+                <div className="mt-3 img-hover-zoom cursor-pointer overflow-hidden rounded-lg max-w-[120px] h-[90px] relative">
+                  {!imageLoaded && (
+                    <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+                  )}
                   <img
                     src={review.imageUrl}
                     alt="Pedido"
                     className={`w-full h-full object-cover transition-all duration-700 ease-in-out ${imageLoaded ? 'image-loaded' : 'image-blur-placeholder'}`}
                     onLoad={() => setImageLoaded(true)}
                   />
-                  {!imageLoaded && (
-                    <div className="absolute inset-0 bg-gray-200 animate-pulse" />
-                  )}
                 </div>
               </DialogTrigger>
               <DialogContent className="max-w-md mx-auto p-1 bg-transparent border-0 shadow-none">

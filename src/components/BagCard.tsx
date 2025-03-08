@@ -20,15 +20,15 @@ const BagCard: React.FC<BagCardProps> = ({ bag }) => {
   return (
     <div className="glass-card rounded-xl overflow-hidden animate-fade-up">
       <div className="relative h-48 overflow-hidden">
+        {!imageLoaded && (
+          <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+        )}
         <img
           src={bag.imageUrl}
           alt={bag.name}
           className={`w-full h-full object-cover transition-all duration-700 ease-in-out ${imageLoaded ? 'image-loaded' : 'image-blur-placeholder'}`}
           onLoad={() => setImageLoaded(true)}
         />
-        {!imageLoaded && (
-          <div className="absolute inset-0 bg-gray-200 animate-pulse" />
-        )}
         <div className="absolute top-2 right-2 bg-food-orange text-white text-xs font-bold rounded-full px-2 py-1">
           -{bag.discount}%
         </div>

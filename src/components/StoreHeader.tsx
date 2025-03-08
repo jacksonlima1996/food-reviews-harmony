@@ -15,15 +15,15 @@ const StoreHeader: React.FC<StoreHeaderProps> = ({ store, compact = false }) => 
   return (
     <div className={`flex ${compact ? 'flex-row items-center' : 'flex-col md:flex-row items-start md:items-center'} gap-4 w-full animate-fade-up`}>
       <div className="relative overflow-hidden rounded-xl h-16 w-16 md:h-24 md:w-24 flex-shrink-0">
+        {!imageLoaded && (
+          <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+        )}
         <img
           src={store.logo}
           alt={store.name}
           className={`h-full w-full object-cover transition-all duration-700 ease-in-out ${imageLoaded ? 'image-loaded' : 'image-blur-placeholder'}`}
           onLoad={() => setImageLoaded(true)}
         />
-        {!imageLoaded && (
-          <div className="absolute inset-0 bg-gray-200 animate-pulse" />
-        )}
       </div>
       
       <div className="flex flex-col space-y-1">
