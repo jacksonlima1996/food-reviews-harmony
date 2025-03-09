@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import StoreHeader from '@/components/StoreHeader';
 import ReviewCard from '@/components/ReviewCard';
 import AISummary from '@/components/AISummary';
@@ -9,6 +9,7 @@ import { ArrowLeft } from 'lucide-react';
 
 const Reviews = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const { storeId } = useParams();
 
   useEffect(() => {
     // Simulate API loading
@@ -24,7 +25,7 @@ const Reviews = () => {
       <div className="max-w-screen-md mx-auto px-4 py-4 md:py-8">
         <header className="flex items-center mb-6">
           <Link 
-            to="/" 
+            to={`/store/${storeId}`} 
             className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 transition-all duration-200 mr-2"
           >
             <ArrowLeft size={20} className="text-gray-700" />

@@ -38,7 +38,7 @@ const Landing = () => {
             </Link>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4">
             {featuredBags.map((bag) => (
               <FeaturedBagCard key={bag.id} bag={bag} />
             ))}
