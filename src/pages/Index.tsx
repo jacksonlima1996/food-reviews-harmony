@@ -31,14 +31,10 @@ const Index = () => {
           {/* Decorative element */}
           <div className="absolute -top-20 -right-20 w-40 h-40 bg-food-orange opacity-5 rounded-full"></div>
           
-          <div className="mb-6">
+          <div className="mb-4">
             <StoreHeader store={mockStore} />
-          </div>
-          
-          <div className="h-px bg-gray-100 my-6"></div>
-          
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
+            
+            <div className="flex items-center gap-2 mt-4">
               <h2 className="text-lg font-semibold">Sobre o estabelecimento</h2>
               <button 
                 onClick={() => setShowDescription(!showDescription)}
@@ -50,33 +46,33 @@ const Index = () => {
             </div>
             
             {showDescription && (
-              <p className="text-gray-600">
+              <p className="text-gray-600 mt-2">
                 Somos uma padaria artesanal comprometida em reduzir o desperdício de alimentos 
                 oferecendo produtos de qualidade que estão próximos do vencimento a 
                 preços reduzidos. Nossa missão é contribuir para um mundo mais 
                 sustentável enquanto proporcionamos economia para nossos clientes.
               </p>
             )}
-            
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-6 gap-4">
-              <div className="flex items-center gap-2">
-                <AnimatedRating 
-                  rating={mockStore.averageRating} 
-                  className="flex-shrink-0"
-                />
-                <span className="text-gray-600 text-sm">
-                  ({mockStore.averageRating.toFixed(1)}) • {mockStore.reviewCount} avaliações
-                </span>
-              </div>
-              
-              <Link 
-                to={`/reviews/${storeId}`} 
-                className="inline-flex items-center justify-center rounded-xl bg-food-orange px-5 py-2 font-medium text-white transition-all hover:bg-food-orange-dark focus:outline-none focus:ring-2 focus:ring-food-orange focus:ring-offset-2 w-full sm:w-auto"
-              >
-                <span>Ver Avaliações</span>
-                <ChevronRight size={16} className="ml-1" />
-              </Link>
+          </div>
+          
+          <div className="flex flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <AnimatedRating 
+                rating={mockStore.averageRating} 
+                className="flex-shrink-0"
+              />
+              <span className="text-gray-600 text-sm">
+                ({mockStore.averageRating.toFixed(1)}) • {mockStore.reviewCount} avaliações
+              </span>
             </div>
+            
+            <Link 
+              to={`/reviews/${storeId}`} 
+              className="inline-flex items-center justify-center rounded-xl bg-food-orange px-5 py-2 font-medium text-white transition-all hover:bg-food-orange-dark focus:outline-none focus:ring-2 focus:ring-food-orange focus:ring-offset-2"
+            >
+              <span>Ver Avaliações</span>
+              <ChevronRight size={16} className="ml-1" />
+            </Link>
           </div>
         </div>
         
