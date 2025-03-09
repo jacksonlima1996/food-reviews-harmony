@@ -90,3 +90,90 @@ export const mockReviews: Review[] = [
 ];
 
 export const aiSummary = "Os clientes destacam a qualidade e frescor dos produtos da padaria, especialmente os pães artesanais e a variedade de doces. A relação custo-benefício das sacolas surpresa é frequentemente elogiada.";
+
+// Additional mock data for the landing page
+export const mockStores: Store[] = [
+  {
+    id: "store-1",
+    name: "Padaria Aroma Fresco",
+    logo: "https://images.unsplash.com/photo-1565299507177-b0ac66763828?q=80&w=200&h=200&auto=format&fit=crop",
+    salesVolume: "320+ vendas",
+    averageRating: 4.8,
+    reviewCount: 42
+  },
+  {
+    id: "store-2",
+    name: "Mercado Natural",
+    logo: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?q=80&w=200&h=200&auto=format&fit=crop",
+    salesVolume: "280+ vendas",
+    averageRating: 4.6,
+    reviewCount: 38
+  },
+  {
+    id: "store-3",
+    name: "Doces da Vovó",
+    logo: "https://images.unsplash.com/photo-1517433670267-08bbd4be890f?q=80&w=200&h=200&auto=format&fit=crop",
+    salesVolume: "210+ vendas",
+    averageRating: 4.9,
+    reviewCount: 56
+  },
+  {
+    id: "store-4",
+    name: "Restaurante Sabor Natural",
+    logo: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=200&h=200&auto=format&fit=crop",
+    salesVolume: "150+ vendas",
+    averageRating: 4.5,
+    reviewCount: 29
+  },
+  {
+    id: "store-5",
+    name: "Café Especial",
+    logo: "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?q=80&w=200&h=200&auto=format&fit=crop",
+    salesVolume: "180+ vendas",
+    averageRating: 4.7,
+    reviewCount: 32
+  }
+];
+
+export const featuredBags: BagOffer[] = [
+  {
+    id: "featured-1",
+    name: "Doces Premium",
+    price: 18.90,
+    originalPrice: 37.80,
+    discount: 50,
+    description: "Seleção de doces finos e sobremesas gourmet de alta qualidade. Inclui mousses, pastéis e outras delícias.",
+    imageUrl: "",
+    category: "sweet",
+    storeId: "store-3",
+    storeName: "Doces da Vovó",
+    rating: 4.9
+  },
+  {
+    id: "featured-2",
+    name: "Salgados Artesanais",
+    price: 21.50,
+    originalPrice: 43.00,
+    discount: 50,
+    description: "Variedade de salgados caseiros preparados no dia. Perfeito para um lanche substancial.",
+    imageUrl: "",
+    category: "savory",
+    storeId: "store-4",
+    storeName: "Restaurante Sabor Natural",
+    rating: 4.7
+  },
+  {
+    id: "featured-3",
+    name: "Kit Café da Manhã",
+    price: 24.90,
+    originalPrice: 49.80,
+    discount: 50,
+    description: "Combinação completa para um café da manhã especial com itens doces e salgados.",
+    imageUrl: "",
+    category: "mixed",
+    storeId: "store-5",
+    storeName: "Café Especial",
+    rating: 4.8
+  }
+];
+

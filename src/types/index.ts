@@ -25,4 +25,9 @@ export interface BagOffer {
   discount: number;
   description: string;
   imageUrl: string;
+  rating?: number;
+  storeId?: string;
+  storeName?: string;
+  category?: 'sweet' | 'savory' | 'mixed';
 }
+
