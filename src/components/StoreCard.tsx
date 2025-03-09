@@ -15,11 +15,11 @@ const StoreCard: React.FC<StoreCardProps> = ({ store }) => {
   return (
     <Link 
       to={`/store/${store.id}`} 
-      className="glass-card rounded-xl overflow-hidden flex items-center p-3 animate-fade-up hover:shadow-md transition-shadow"
+      className="glass-card rounded-xl overflow-hidden flex items-center p-3 hover:shadow-md transition-shadow"
     >
       <div className="relative h-16 w-16 overflow-hidden rounded-xl flex-shrink-0 mr-3">
         {!imageLoaded && (
-          <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
+          <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
             <ShoppingBag size={24} className="text-gray-400" />
           </div>
         )}
