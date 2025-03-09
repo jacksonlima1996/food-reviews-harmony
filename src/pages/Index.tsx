@@ -55,17 +55,7 @@ const Index = () => {
             )}
           </div>
           
-          <div className="flex flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <AnimatedRating 
-                rating={mockStore.averageRating} 
-                className="flex-shrink-0"
-              />
-              <span className="text-gray-600 text-sm">
-                ({mockStore.averageRating.toFixed(1)}) • {mockStore.reviewCount} avaliações
-              </span>
-            </div>
-            
+          <div className="flex justify-center mt-4">
             <Link 
               to={`/reviews/${storeId}`} 
               className="inline-flex items-center justify-center rounded-xl bg-food-orange px-5 py-2 font-medium text-white transition-all hover:bg-food-orange-dark focus:outline-none focus:ring-2 focus:ring-food-orange focus:ring-offset-2"
