@@ -26,11 +26,6 @@ const FeaturedBagCard: React.FC<FeaturedBagCardProps> = ({ bag }) => {
         <div className="absolute top-2 right-2 bg-food-orange text-white text-xs font-bold rounded-full px-2 py-1">
           -{bag.discount}%
         </div>
-        {bag.category && (
-          <div className="absolute top-2 left-2 bg-white text-food-orange text-xs font-bold rounded-full px-2 py-1 border border-food-orange">
-            {bag.category === 'sweet' ? 'Doce' : bag.category === 'savory' ? 'Salgada' : 'Mista'}
-          </div>
-        )}
       </div>
       
       <div className="p-3 flex-grow flex flex-col">

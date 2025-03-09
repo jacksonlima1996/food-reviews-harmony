@@ -13,29 +13,29 @@ export const mockStore: Store = {
 export const mockBags: BagOffer[] = [
   {
     id: "bag-1",
-    name: "Sacola Surpresa - Pães Artesanais",
+    name: "Sacola Surpresa - Mista",
     price: 19.90,
     originalPrice: 39.80,
     discount: 50,
-    description: "Sacola com uma variedade de pães artesanais que estariam próximos ao vencimento. Pode incluir pães de fermentação natural, ciabatta, multigrãos e outros.",
+    description: "Panificação",
     imageUrl: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=500&auto=format&fit=crop"
   },
   {
     id: "bag-2",
-    name: "Sacola Surpresa - Doces Variados",
+    name: "Sacola Surpresa - Doce",
     price: 22.90,
     originalPrice: 45.80,
     discount: 50,
-    description: "Uma seleção de doces e bolos que estariam próximos ao vencimento. Pode incluir croissants, fatias de torta, donuts e outros doces da padaria.",
+    description: "Confeitaria",
     imageUrl: "https://images.unsplash.com/photo-1603532648955-039310d9ed75?q=80&w=500&auto=format&fit=crop"
   },
   {
     id: "bag-3",
-    name: "Sacola Mix - Café da Manhã",
+    name: "Sacola surpresa - Salgada",
     price: 25.90,
     originalPrice: 51.80,
     discount: 50,
-    description: "Combinação de pães e doces perfeitos para um café da manhã completo. Itens próximos ao vencimento com qualidade garantida.",
+    description: "Panificação",
     imageUrl: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=500&auto=format&fit=crop"
   }
 ];
@@ -89,7 +89,7 @@ export const mockReviews: Review[] = [
   }
 ];
 
-export const aiSummary = "Os clientes destacam a qualidade e frescor dos produtos da padaria, especialmente os pães artesanais e a variedade de doces. A relação custo-benefício das sacolas surpresa é frequentemente elogiada.";
+export const aiSummary = "Os clientes destacam a qualidade e a variedade dos produtos que o estabelecimento fornece. A relação custo-benefício das sacolas surpresa é frequentemente elogiada.";
 
 // Additional mock data for the landing page
 export const mockStores: Store[] = [
@@ -119,7 +119,7 @@ export const mockStores: Store[] = [
   },
   {
     id: "store-4",
-    name: "Restaurante Sabor Natural",
+    name: "Sabor Natural",
     logo: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=200&h=200&auto=format&fit=crop",
     salesVolume: "150+ vendas",
     averageRating: 4.5,
@@ -138,11 +138,11 @@ export const mockStores: Store[] = [
 export const featuredBags: BagOffer[] = [
   {
     id: "featured-1",
-    name: "Doces Premium",
+    name: "Doce",
     price: 18.90,
     originalPrice: 37.80,
     discount: 50,
-    description: "Seleção de doces finos e sobremesas gourmet de alta qualidade. Inclui mousses, pastéis e outras delícias.",
+    description: "Confeitaria",
     imageUrl: "",
     category: "sweet",
     storeId: "store-3",
@@ -151,24 +151,24 @@ export const featuredBags: BagOffer[] = [
   },
   {
     id: "featured-2",
-    name: "Salgados Artesanais",
+    name: "Salgada",
     price: 21.50,
     originalPrice: 43.00,
     discount: 50,
-    description: "Variedade de salgados caseiros preparados no dia. Perfeito para um lanche substancial.",
+    description: "Comida Caseira",
     imageUrl: "",
     category: "savory",
     storeId: "store-4",
-    storeName: "Restaurante Sabor Natural",
+    storeName: "Sabor Natural",
     rating: 4.7
   },
   {
     id: "featured-3",
-    name: "Kit Café da Manhã",
+    name: "Mista",
     price: 24.90,
     originalPrice: 49.80,
     discount: 50,
-    description: "Combinação completa para um café da manhã especial com itens doces e salgados.",
+    description: "Panificação / Confeitaria",
     imageUrl: "",
     category: "mixed",
     storeId: "store-5",

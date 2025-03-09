@@ -40,7 +40,7 @@ const BagCard: React.FC<BagCardProps> = ({ bag }) => {
           
           <button className="bg-food-orange hover:bg-food-orange-dark text-white rounded-xl px-3 py-2 flex items-center gap-2 text-sm transition-colors">
             <ShoppingBag size={16} />
-            <span>Reservar</span>
+            <span>Adicionar</span>
           </button>
         </div>
       </div>
