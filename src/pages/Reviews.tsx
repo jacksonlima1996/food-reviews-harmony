@@ -4,21 +4,36 @@ import { Link, useParams } from 'react-router-dom';
 import StoreHeader from '@/components/StoreHeader';
 import ReviewCard from '@/components/ReviewCard';
 import AISummary from '@/components/AISummary';
+import ReviewDialog from '@/components/ReviewDialog';
 import { mockStore, mockReviews, aiSummary } from '@/data/mockData';
 import { ArrowLeft } from 'lucide-react';
+import { format } from 'date-fns';
 
 const Reviews = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [reviews, setReviews] = useState(mockReviews);
   const { storeId } = useParams();
 
   useEffect(() => {
-    // Simulate API loading
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 800);
 
     return () => clearTimeout(timer);
   }, []);
+
+  const handleNewReview = ({ rating, comment, imageUrl }: { rating: number; comment: string; imageUrl?: string }) => {
+    const newReview = {
+      id: `review-${Date.now()}`,
+      userName: "Roberto Carlos (Você)",
+      rating,
+      comment,
+      date: format(new Date(), "yyyy-MM-dd"),
+      imageUrl
+    };
+
+    setReviews([newReview, ...reviews]);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
@@ -44,11 +59,10 @@ const Reviews = () => {
         <div className="mt-8">
           <h2 className="text-lg font-medium mb-4 flex items-center">
             <span>Comentários dos Clientes</span>
-            <span className="ml-2 text-sm text-gray-500 font-normal">({mockReviews.length})</span>
+            <span className="ml-2 text-sm text-gray-500 font-normal">({reviews.length})</span>
           </h2>
           
           {isLoading ? (
-            // Loading skeleton
             Array.from({ length: 3 }).map((_, index) => (
               <div key={index} className="glass-card rounded-xl p-4 mb-4">
                 <div className="flex items-start gap-3">
@@ -62,11 +76,13 @@ const Reviews = () => {
               </div>
             ))
           ) : (
-            mockReviews.map((review, index) => (
+            reviews.map((review, index) => (
               <ReviewCard key={review.id} review={review} index={index} />
             ))
           )}
         </div>
+        
+        <ReviewDialog onSubmit={handleNewReview} />
       </div>
     </div>
   );

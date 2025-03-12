@@ -1,4 +1,3 @@
-
 import { Store, Review, BagOffer } from '../types';
 
 export const mockStore: Store = {
@@ -62,7 +61,7 @@ export const mockReviews: Review[] = [
     userName: "Mariana Costa",
     rating: 5,
     comment: "Superou minhas expectativas! A sacola mix para café da manhã tinha muito mais itens do que eu esperava. Tudo muito fresco e saboroso.",
-    date: "2023-10-05",
+    date: "2023-05-05",
     imageUrl: "https://images.unsplash.com/photo-1608835291093-394b0c943a75?q=80&w=384&auto=format&fit=crop"
   },
   {
@@ -79,19 +78,11 @@ export const mockReviews: Review[] = [
     comment: "Esta é minha terceira compra e continuo impressionada com a qualidade. Os pães e doces estão sempre frescos e a seleção é ótima.",
     date: "2023-09-25",
     imageUrl: "https://images.unsplash.com/photo-1517433367423-c7e5b0f35086?q=80&w=384&auto=format&fit=crop"
-  },
-  {
-    id: "review-6",
-    userName: "Usuário Anônimo",
-    rating: 3,
-    comment: "Experiência mista. Alguns produtos estavam excelentes, outros nem tanto. Mas pelo valor, ainda é uma boa opção.",
-    date: "2023-09-20"
   }
 ];
 
 export const aiSummary = "Os clientes destacam a qualidade e a variedade dos produtos que o estabelecimento fornece. A relação custo-benefício das sacolas surpresa é frequentemente elogiada.";
 
-// Additional mock data for the landing page
 export const mockStores: Store[] = [
   {
     id: "store-1",
@@ -176,4 +167,3 @@ export const featuredBags: BagOffer[] = [
     rating: 4.8
   }
 ];
-
