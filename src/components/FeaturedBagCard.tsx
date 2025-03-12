@@ -32,7 +32,7 @@ const FeaturedBagCard: React.FC<FeaturedBagCardProps> = ({ bag }) => {
         <h3 className="font-semibold text-gray-800 mb-1 text-sm">{bag.name}</h3>
         
         <div className="flex flex-col mt-auto">
-          <div className="flex items-center justify-between mb-1">
+          <div className="flex flex-col">
             <span className="text-base font-semibold text-food-orange">{formatCurrency(bag.price)}</span>
             <span className="text-xs text-gray-500 line-through">{formatCurrency(bag.originalPrice)}</span>
           </div>
@@ -40,7 +40,7 @@ const FeaturedBagCard: React.FC<FeaturedBagCardProps> = ({ bag }) => {
           {bag.storeName && (
             <Link 
               to={`/store/${bag.storeId}`} 
-              className="text-xs text-gray-700 hover:text-food-orange transition-colors flex items-center"
+              className="text-xs text-gray-700 hover:text-food-orange transition-colors flex items-center mt-1"
             >
               <span>{bag.storeName}</span>
             </Link>
