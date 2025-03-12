@@ -5,20 +5,23 @@ import AnimatedRating from './AnimatedRating';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { User } from 'lucide-react';
+import { Trash2, User } from 'lucide-react';
 
 interface ReviewCardProps {
   review: Review;
   index: number;
+  onDelete?: (reviewId: string) => void;
 }
 
-const ReviewCard: React.FC<ReviewCardProps> = ({ review, index }) => {
+const ReviewCard: React.FC<ReviewCardProps> = ({ review, index, onDelete }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   
   const formattedDate = formatDistanceToNow(parseISO(review.date), { 
     addSuffix: true,
     locale: ptBR
   });
+
+  const isUserReview = review.userName.includes('(Você)');
 
   return (
     <div 
@@ -43,6 +46,16 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review, index }) => {
                 <span className="text-xs text-gray-500">{formattedDate}</span>
               </div>
             </div>
+            
+            {isUserReview && onDelete && (
+              <button 
+                onClick={() => onDelete(review.id)}
+                className="text-gray-400 hover:text-red-500 transition-colors p-1"
+                aria-label="Excluir comentário"
+              >
+                <Trash2 size={18} />
+              </button>
+            )}
           </div>
           
           <p className="mt-2 text-gray-600 text-sm leading-relaxed">{review.comment}</p>

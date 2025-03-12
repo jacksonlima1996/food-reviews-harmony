@@ -8,11 +8,13 @@ import ReviewDialog from '@/components/ReviewDialog';
 import { mockStore, mockReviews, aiSummary } from '@/data/mockData';
 import { ArrowLeft } from 'lucide-react';
 import { format } from 'date-fns';
+import { useToast } from "@/hooks/use-toast";
 
 const Reviews = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [reviews, setReviews] = useState(mockReviews);
+  const [reviews, setReviews] = useState(mockReviews.filter(r => !r.userName.includes('Anônimo')));
   const { storeId } = useParams();
+  const { toast } = useToast();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -33,6 +35,14 @@ const Reviews = () => {
     };
 
     setReviews([newReview, ...reviews]);
+  };
+
+  const handleDeleteReview = (reviewId: string) => {
+    setReviews(reviews.filter(review => review.id !== reviewId));
+    toast({
+      title: "Comentário excluído",
+      description: "Seu comentário foi excluído com sucesso.",
+    });
   };
 
   return (
@@ -77,7 +87,12 @@ const Reviews = () => {
             ))
           ) : (
             reviews.map((review, index) => (
-              <ReviewCard key={review.id} review={review} index={index} />
+              <ReviewCard 
+                key={review.id} 
+                review={review} 
+                index={index} 
+                onDelete={review.userName.includes('(Você)') ? handleDeleteReview : undefined}
+              />
             ))
           )}
         </div>

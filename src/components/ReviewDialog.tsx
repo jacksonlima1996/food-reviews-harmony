@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
 import AnimatedRating from './AnimatedRating';
 import { Image, Send } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
@@ -61,14 +61,14 @@ const ReviewDialog: React.FC<ReviewDialogProps> = ({ onSubmit }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-food-orange hover:bg-food-orange-dark text-white px-6 py-3 rounded-full shadow-lg transition-colors z-50">
-          Realizar uma avaliação
+        <button className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-food-orange hover:bg-food-orange-dark text-white px-6 py-3 rounded-full shadow-lg transition-colors z-50 whitespace-nowrap text-sm sm:text-base">
+          Avaliar
         </button>
       </DialogTrigger>
       <DialogContent className="max-w-lg">
+        <DialogTitle className="text-lg font-semibold mb-2">Sua avaliação</DialogTitle>
         <div className="space-y-4">
           <div>
-            <h3 className="text-lg font-semibold mb-2">Sua avaliação</h3>
             <div className="flex items-center gap-2">
               <AnimatedRating
                 rating={rating}
