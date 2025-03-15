@@ -40,12 +40,16 @@ const FeaturedBagCard: React.FC<FeaturedBagCardProps> = ({ bag }) => {
     setQuantity(1);
   };
 
+  const openDialog = () => {
+    setIsDialogOpen(true);
+  };
+
   return (
     <>
       <div className="glass-card rounded-xl overflow-hidden h-full flex flex-col">
         <div 
           className="relative h-28 overflow-hidden bg-gray-100 flex items-center justify-center cursor-pointer"
-          onClick={() => setIsDialogOpen(true)}
+          onClick={openDialog}
         >
           <ShoppingBag 
             size={40} 
@@ -57,12 +61,21 @@ const FeaturedBagCard: React.FC<FeaturedBagCardProps> = ({ bag }) => {
         </div>
         
         <div className="p-3 flex-grow flex flex-col">
-          <h3 className="font-semibold text-gray-800 mb-1 text-sm">{bag.name}</h3>
+          <h3 
+            className="font-semibold text-gray-800 mb-1 text-sm cursor-pointer hover:text-food-orange transition-colors"
+            onClick={openDialog}
+          >
+            {bag.name}
+          </h3>
           
           <div className="flex flex-col mt-auto">
-            <div className="flex flex-col">
-              <span className="text-base font-semibold text-food-orange">{formatCurrency(bag.price)}</span>
-              <span className="text-xs text-gray-500 line-through">{formatCurrency(bag.originalPrice)}</span>
+            <div className="flex flex-col cursor-pointer" onClick={openDialog}>
+              <span className="text-base font-semibold text-food-orange hover:opacity-90 transition-opacity">
+                {formatCurrency(bag.price)}
+              </span>
+              <span className="text-xs text-gray-500 line-through">
+                {formatCurrency(bag.originalPrice)}
+              </span>
             </div>
             
             {bag.storeName && (

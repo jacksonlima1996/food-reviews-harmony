@@ -29,13 +29,6 @@ const Landing = () => {
         <section className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold">Sacolas em Destaque</h2>
-            <Link 
-              to="/all-bags" 
-              className="text-food-orange flex items-center text-sm font-medium"
-            >
-              Ver todas
-              <ChevronRight size={16} />
-            </Link>
           </div>
           
           <div className="grid grid-cols-3 gap-2 sm:gap-4">
