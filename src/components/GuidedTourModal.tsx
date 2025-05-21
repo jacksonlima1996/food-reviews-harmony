@@ -26,7 +26,13 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
   
   const nextStep = () => {
     if (step < totalSteps + 1) {
-      setStep(step + 1);
+      // If we're on step 1 and on the landing page, navigate to reviews page
+      if (step === 1 && currentPage === 'landing') {
+        navigate('/reviews/1?tour=true', { state: { fromTour: true } });
+        // We don't increment step here as the Reviews component will show the tour modal
+      } else {
+        setStep(step + 1);
+      }
     }
   };
 
@@ -94,22 +100,34 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
         title: 'Sacolas Recomendadas',
         description: 'Agora você pode ver as sacolas mais bem recomendadas, não fique de fora!',
         icon: <ShoppingBag size={20} className="text-food-orange" />,
+        page: 'landing'
       },
       {
         highlight: '.reviews-section',
         title: 'Área de Avaliações',
         description: 'Aqui você pode comentar, incluir fotos e ver o comentário da comunidade, tudo isso para você ter a melhor experiência.',
         icon: <MessageSquare size={20} className="text-food-orange" />,
+        page: 'reviews'
       },
       {
-        highlight: '.store-card-wrapper',
+        highlight: '.ai-summary-section',
         title: 'Resumo por IA',
         description: 'A nossa inteligência artificial resume tudo para você!',
         icon: <Sparkles size={20} className="text-food-orange" />,
+        page: 'reviews'
       }
     ];
 
-    const currentStep = steps[step - 1];
+    // Get current step based on the step number and current page
+    const currentStepIndex = step - 1;
+    
+    // Only show steps that match the current page
+    const currentStep = steps[currentStepIndex];
+    
+    // If we're on the wrong page for this step, don't render the step content
+    if (currentStep.page !== currentPage) {
+      return null;
+    }
     
     return (
       <div className="py-4">
@@ -118,7 +136,7 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
           {steps.map((_, idx) => (
             <div 
               key={idx} 
-              className={`h-2 w-8 mx-1 rounded-full ${idx === step - 1 ? 'bg-food-orange' : 'bg-gray-200'}`}
+              className={`h-2 w-8 mx-1 rounded-full ${idx === currentStepIndex ? 'bg-food-orange' : 'bg-gray-200'}`}
             />
           ))}
         </div>
@@ -189,8 +207,31 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
   const getHighlightedElements = () => {
     if (step === 0 || step > totalSteps) return null;
     
-    // Landing page highlights for each step
-    if (step === 1) {
+    const steps = [
+      {
+        highlight: '.featured-bags-section',
+        page: 'landing'
+      },
+      {
+        highlight: '.reviews-section',
+        page: 'reviews'
+      },
+      {
+        highlight: '.ai-summary-section',
+        page: 'reviews'
+      }
+    ];
+    
+    const currentStepIndex = step - 1;
+    const currentStep = steps[currentStepIndex];
+    
+    // Only show highlight if we're on the correct page for this step
+    if (currentStep.page !== currentPage) {
+      return null;
+    }
+    
+    // Landing page highlight
+    if (currentPage === 'landing' && step === 1) {
       return (
         <div className="fixed inset-0 pointer-events-none z-40">
           <div className="absolute inset-0 bg-black/30">
@@ -198,22 +239,27 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
           </div>
         </div>
       );
-    } else if (step === 2) {
-      return (
-        <div className="fixed inset-0 pointer-events-none z-40">
-          <div className="absolute inset-0 bg-black/30">
-            <div className="reviews-section-highlight absolute top-[380px] left-[50%] transform -translate-x-1/2 w-[90%] max-w-screen-md h-[350px] border-4 border-yellow-400 rounded-xl animate-pulse"></div>
+    } 
+    
+    // Reviews page highlights
+    else if (currentPage === 'reviews') {
+      if (step === 2) {
+        return (
+          <div className="fixed inset-0 pointer-events-none z-40">
+            <div className="absolute inset-0 bg-black/30">
+              <div className="reviews-section-highlight absolute top-[380px] left-[50%] transform -translate-x-1/2 w-[90%] max-w-screen-md h-[350px] border-4 border-yellow-400 rounded-xl animate-pulse"></div>
+            </div>
           </div>
-        </div>
-      );
-    } else if (step === 3) {
-      return (
-        <div className="fixed inset-0 pointer-events-none z-40">
-          <div className="absolute inset-0 bg-black/30">
-            <div className="store-card-highlight absolute top-[450px] left-[50%] transform -translate-x-1/2 w-[90%] max-w-screen-md h-[80px] border-4 border-yellow-400 rounded-xl animate-pulse"></div>
+        );
+      } else if (step === 3) {
+        return (
+          <div className="fixed inset-0 pointer-events-none z-40">
+            <div className="absolute inset-0 bg-black/30">
+              <div className="ai-summary-highlight absolute top-[280px] left-[50%] transform -translate-x-1/2 w-[90%] max-w-screen-md h-[120px] border-4 border-yellow-400 rounded-xl animate-pulse"></div>
+            </div>
           </div>
-        </div>
-      );
+        );
+      }
     }
     
     return null;
