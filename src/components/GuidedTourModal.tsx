@@ -26,11 +26,6 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
   
   const nextStep = () => {
     if (step < totalSteps + 1) {
-      if (step === 1 && currentPage === 'landing') {
-        // Navigate to reviews page when advancing from step 1 on landing
-        navigate('/reviews/1');
-        return;
-      }
       setStep(step + 1);
     }
   };
@@ -99,37 +94,23 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
         title: 'Sacolas Recomendadas',
         description: 'Agora você pode ver as sacolas mais bem recomendadas, não fique de fora!',
         icon: <ShoppingBag size={20} className="text-food-orange" />,
-        page: 'landing'
       },
       {
         highlight: '.reviews-section',
         title: 'Área de Avaliações',
         description: 'Aqui você pode comentar, incluir fotos e ver o comentário da comunidade, tudo isso para você ter a melhor experiência.',
         icon: <MessageSquare size={20} className="text-food-orange" />,
-        page: 'reviews'
       },
       {
-        highlight: '.ai-summary-section',
+        highlight: '.store-card-wrapper',
         title: 'Resumo por IA',
         description: 'A nossa inteligência artificial resume tudo para você!',
         icon: <Sparkles size={20} className="text-food-orange" />,
-        page: 'reviews'
       }
     ];
 
-    // Adjust step index based on current page
-    let displayStep = step - 1;
-    if (currentPage === 'reviews' && step === 1) {
-      displayStep = 1; // Show step 2 content on reviews page
-    }
-
-    const currentStep = steps[displayStep];
+    const currentStep = steps[step - 1];
     
-    // Don't render if step doesn't match current page
-    if (currentStep.page !== currentPage) {
-      return null;
-    }
-
     return (
       <div className="py-4">
         {/* Step indicator */}
@@ -137,7 +118,7 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
           {steps.map((_, idx) => (
             <div 
               key={idx} 
-              className={`h-2 w-8 mx-1 rounded-full ${idx === displayStep ? 'bg-food-orange' : 'bg-gray-200'}`}
+              className={`h-2 w-8 mx-1 rounded-full ${idx === step - 1 ? 'bg-food-orange' : 'bg-gray-200'}`}
             />
           ))}
         </div>
@@ -150,7 +131,7 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
         <p className="text-gray-600 mb-6">{currentStep.description}</p>
         
         <div className="text-xs text-gray-500 mb-4 text-center">
-          Passo {displayStep + 1}/{totalSteps}
+          Passo {step}/{totalSteps}
         </div>
         
         <div className="flex gap-2">
@@ -165,7 +146,7 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
             className="flex-1 bg-food-orange hover:bg-food-orange-dark"
             onClick={nextStep}
           >
-            {displayStep === totalSteps - 1 ? 'Concluir' : 'Avançar'}
+            {step === totalSteps ? 'Concluir' : 'Avançar'}
           </Button>
         </div>
       </div>
@@ -208,38 +189,31 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
   const getHighlightedElements = () => {
     if (step === 0 || step > totalSteps) return null;
     
-    // Landing page highlights
-    if (currentPage === 'landing' && step === 1) {
+    // Landing page highlights for each step
+    if (step === 1) {
       return (
         <div className="fixed inset-0 pointer-events-none z-40">
-          <div className="absolute inset-0 bg-black/50">
+          <div className="absolute inset-0 bg-black/30">
             <div className="featured-bags-section-highlight absolute top-[210px] left-[50%] transform -translate-x-1/2 w-[90%] max-w-screen-md h-[150px] border-4 border-yellow-400 rounded-xl animate-pulse"></div>
           </div>
         </div>
       );
-    }
-    
-    // Reviews page highlights
-    if (currentPage === 'reviews') {
-      if (step === 1 || step === 2) {
-        return (
-          <div className="fixed inset-0 pointer-events-none z-40">
-            <div className="absolute inset-0 bg-black/50">
-              <div className="reviews-section-highlight absolute top-[450px] left-[50%] transform -translate-x-1/2 w-[90%] max-w-screen-md h-[180px] border-4 border-yellow-400 rounded-xl animate-pulse"></div>
-            </div>
+    } else if (step === 2) {
+      return (
+        <div className="fixed inset-0 pointer-events-none z-40">
+          <div className="absolute inset-0 bg-black/30">
+            <div className="reviews-section-highlight absolute top-[380px] left-[50%] transform -translate-x-1/2 w-[90%] max-w-screen-md h-[350px] border-4 border-yellow-400 rounded-xl animate-pulse"></div>
           </div>
-        );
-      }
-      
-      if (step === 3) {
-        return (
-          <div className="fixed inset-0 pointer-events-none z-40">
-            <div className="absolute inset-0 bg-black/50">
-              <div className="ai-summary-highlight absolute top-[380px] left-[50%] transform -translate-x-1/2 w-[90%] max-w-screen-md h-[100px] border-4 border-yellow-400 rounded-xl animate-pulse"></div>
-            </div>
+        </div>
+      );
+    } else if (step === 3) {
+      return (
+        <div className="fixed inset-0 pointer-events-none z-40">
+          <div className="absolute inset-0 bg-black/30">
+            <div className="store-card-highlight absolute top-[450px] left-[50%] transform -translate-x-1/2 w-[90%] max-w-screen-md h-[80px] border-4 border-yellow-400 rounded-xl animate-pulse"></div>
           </div>
-        );
-      }
+        </div>
+      );
     }
     
     return null;

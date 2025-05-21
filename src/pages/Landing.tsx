@@ -7,7 +7,6 @@ import GuidedTourModal from '@/components/GuidedTourModal';
 import { featuredBags, mockStores } from '@/data/mockData';
 import { ShoppingBag, MapPin } from 'lucide-react';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import AISummary from '@/components/AISummary';
 
 const Landing = () => {
   const [showTour, setShowTour] = useState(false);
@@ -62,12 +61,6 @@ const Landing = () => {
               <FeaturedBagCard key={bag.id} bag={bag} />
             ))}
           </div>
-        </section>
-
-        <section className="mb-6 ai-summary-section">
-          <AISummary 
-            summary="Os usuários têm compartilhado excelentes experiências com nossas sacolas surpresa. A maioria relata economia significativa e produtos de ótima qualidade. 92% destacam a pontualidade das entregas e o bom atendimento dos estabelecimentos parceiros."
-          />
         </section>
 
         <section className="reviews-section">
