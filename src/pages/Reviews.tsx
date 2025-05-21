@@ -9,10 +9,14 @@ import { mockStore, mockReviews, aiSummary } from '@/data/mockData';
 import { ArrowLeft } from 'lucide-react';
 import { format } from 'date-fns';
 import { useToast } from "@/hooks/use-toast";
+import { useLocalStorage } from '@/hooks/use-local-storage';
+import GuidedTourModal from '@/components/GuidedTourModal';
 
 const Reviews = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [reviews, setReviews] = useState(mockReviews.filter(r => !r.userName.includes('Anônimo')));
+  const [showTour, setShowTour] = useState(false);
+  const [hasSeenTour] = useLocalStorage('has-seen-tour', false);
   const { storeId } = useParams();
   const { toast } = useToast();
 
@@ -21,8 +25,15 @@ const Reviews = () => {
       setIsLoading(false);
     }, 800);
 
+    // If coming from landing page as part of the tour
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('tour') === 'true' || 
+      (!hasSeenTour && window.history.state?.state?.fromTour)) {
+      setShowTour(true);
+    }
+
     return () => clearTimeout(timer);
-  }, []);
+  }, [hasSeenTour]);
 
   const handleNewReview = ({ rating, comment, imageUrl }: { rating: number; comment: string; imageUrl?: string }) => {
     const newReview = {
@@ -45,6 +56,14 @@ const Reviews = () => {
     });
   };
 
+  const handleTourClose = () => {
+    setShowTour(false);
+  };
+
+  const handleTourComplete = () => {
+    setShowTour(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-screen-md mx-auto px-4 py-4 md:py-8">
@@ -62,11 +81,11 @@ const Reviews = () => {
           <StoreHeader store={mockStore} />
         </div>
         
-        <div className="mb-6">
+        <div className="mb-6 ai-summary-section">
           <AISummary summary={aiSummary} />
         </div>
         
-        <div className="mt-8">
+        <div className="mt-8 reviews-section">
           <h2 className="text-lg font-medium mb-4 flex items-center">
             <span>Comentários dos Clientes</span>
             <span className="ml-2 text-sm text-gray-500 font-normal">({reviews.length})</span>
@@ -99,6 +118,15 @@ const Reviews = () => {
         
         <ReviewDialog onSubmit={handleNewReview} />
       </div>
+
+      {/* Guided Tour Modal */}
+      {showTour && (
+        <GuidedTourModal
+          onClose={handleTourClose}
+          onComplete={handleTourComplete}
+          currentPage="reviews"
+        />
+      )}
     </div>
   );
 };

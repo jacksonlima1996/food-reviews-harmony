@@ -5,9 +5,8 @@ import FeaturedBagCard from '@/components/FeaturedBagCard';
 import StoreCard from '@/components/StoreCard';
 import GuidedTourModal from '@/components/GuidedTourModal';
 import { featuredBags, mockStores } from '@/data/mockData';
-import { ShoppingBag, MapPin, Sparkles } from 'lucide-react';
+import { ShoppingBag, MapPin } from 'lucide-react';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { aiSummary } from '@/data/mockData';
 import AISummary from '@/components/AISummary';
 
 const Landing = () => {
@@ -89,6 +88,7 @@ const Landing = () => {
         <GuidedTourModal
           onClose={handleTourClose}
           onComplete={handleTourComplete}
+          currentPage="landing"
         />
       )}
     </div>

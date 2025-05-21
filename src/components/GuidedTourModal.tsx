@@ -2,27 +2,35 @@
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent } from './ui/dialog';
 import { Button } from './ui/button';
-import { Sparkles, ShoppingBag, MessageSquare, Image } from 'lucide-react';
+import { Sparkles, ShoppingBag, MessageSquare } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { motion } from 'framer-motion';
 
 interface GuidedTourModalProps {
   onClose: () => void;
   onComplete: () => void;
+  currentPage?: 'landing' | 'reviews';
 }
 
 export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
   onClose,
-  onComplete
+  onComplete,
+  currentPage = 'landing'
 }) => {
   const [step, setStep] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(true);
-
+  const navigate = useNavigate();
+  
   // Steps: 0 = welcome, 1-3 = tour steps, 4 = conclusion
   const totalSteps = 3;
   
   const nextStep = () => {
     if (step < totalSteps + 1) {
+      if (step === 1 && currentPage === 'landing') {
+        // Navigate to reviews page when advancing from step 1 on landing
+        navigate('/reviews/1');
+        return;
+      }
       setStep(step + 1);
     }
   };
@@ -90,23 +98,37 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
         highlight: '.featured-bags-section',
         title: 'Sacolas Recomendadas',
         description: 'Agora você pode ver as sacolas mais bem recomendadas, não fique de fora!',
-        icon: <ShoppingBag size={20} className="text-food-orange" />
+        icon: <ShoppingBag size={20} className="text-food-orange" />,
+        page: 'landing'
       },
       {
         highlight: '.reviews-section',
         title: 'Área de Avaliações',
         description: 'Aqui você pode comentar, incluir fotos e ver o comentário da comunidade, tudo isso para você ter a melhor experiência.',
-        icon: <MessageSquare size={20} className="text-food-orange" />
+        icon: <MessageSquare size={20} className="text-food-orange" />,
+        page: 'reviews'
       },
       {
         highlight: '.ai-summary-section',
         title: 'Resumo por IA',
         description: 'A nossa inteligência artificial resume tudo para você!',
-        icon: <Sparkles size={20} className="text-food-orange" />
+        icon: <Sparkles size={20} className="text-food-orange" />,
+        page: 'reviews'
       }
     ];
 
-    const currentStep = steps[step - 1];
+    // Adjust step index based on current page
+    let displayStep = step - 1;
+    if (currentPage === 'reviews' && step === 1) {
+      displayStep = 1; // Show step 2 content on reviews page
+    }
+
+    const currentStep = steps[displayStep];
+    
+    // Don't render if step doesn't match current page
+    if (currentStep.page !== currentPage) {
+      return null;
+    }
 
     return (
       <div className="py-4">
@@ -115,7 +137,7 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
           {steps.map((_, idx) => (
             <div 
               key={idx} 
-              className={`h-2 w-8 mx-1 rounded-full ${idx === step - 1 ? 'bg-food-orange' : 'bg-gray-200'}`}
+              className={`h-2 w-8 mx-1 rounded-full ${idx === displayStep ? 'bg-food-orange' : 'bg-gray-200'}`}
             />
           ))}
         </div>
@@ -128,7 +150,7 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
         <p className="text-gray-600 mb-6">{currentStep.description}</p>
         
         <div className="text-xs text-gray-500 mb-4 text-center">
-          Passo {step}/{totalSteps}
+          Passo {displayStep + 1}/{totalSteps}
         </div>
         
         <div className="flex gap-2">
@@ -143,7 +165,7 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
             className="flex-1 bg-food-orange hover:bg-food-orange-dark"
             onClick={nextStep}
           >
-            {step === totalSteps ? 'Concluir' : 'Avançar'}
+            {displayStep === totalSteps - 1 ? 'Concluir' : 'Avançar'}
           </Button>
         </div>
       </div>
@@ -183,38 +205,56 @@ export const GuidedTourModal: React.FC<GuidedTourModalProps> = ({
     return renderConclusionContent();
   };
 
-  return (
-    <>
-      <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="sm:max-w-md">
-          {renderContent()}
-        </DialogContent>
-      </Dialog>
-
-      {/* Highlight elements based on the current tour step */}
-      {step === 1 && (
+  const getHighlightedElements = () => {
+    if (step === 0 || step > totalSteps) return null;
+    
+    // Landing page highlights
+    if (currentPage === 'landing' && step === 1) {
+      return (
         <div className="fixed inset-0 pointer-events-none z-40">
           <div className="absolute inset-0 bg-black/50">
             <div className="featured-bags-section-highlight absolute top-[210px] left-[50%] transform -translate-x-1/2 w-[90%] max-w-screen-md h-[150px] border-4 border-yellow-400 rounded-xl animate-pulse"></div>
           </div>
         </div>
-      )}
-
-      {step === 2 && (
-        <div className="fixed inset-0 pointer-events-none z-40">
-          <div className="absolute inset-0 bg-black/50">
-            <div className="reviews-section-highlight absolute top-[450px] left-[50%] transform -translate-x-1/2 w-[90%] max-w-screen-md h-[180px] border-4 border-yellow-400 rounded-xl animate-pulse"></div>
+      );
+    }
+    
+    // Reviews page highlights
+    if (currentPage === 'reviews') {
+      if (step === 1 || step === 2) {
+        return (
+          <div className="fixed inset-0 pointer-events-none z-40">
+            <div className="absolute inset-0 bg-black/50">
+              <div className="reviews-section-highlight absolute top-[450px] left-[50%] transform -translate-x-1/2 w-[90%] max-w-screen-md h-[180px] border-4 border-yellow-400 rounded-xl animate-pulse"></div>
+            </div>
           </div>
-        </div>
-      )}
-
-      {step === 3 && (
-        <div className="fixed inset-0 pointer-events-none z-40">
-          <div className="absolute inset-0 bg-black/50">
-            <div className="ai-summary-highlight absolute top-[380px] left-[50%] transform -translate-x-1/2 w-[90%] max-w-screen-md h-[100px] border-4 border-yellow-400 rounded-xl animate-pulse"></div>
+        );
+      }
+      
+      if (step === 3) {
+        return (
+          <div className="fixed inset-0 pointer-events-none z-40">
+            <div className="absolute inset-0 bg-black/50">
+              <div className="ai-summary-highlight absolute top-[380px] left-[50%] transform -translate-x-1/2 w-[90%] max-w-screen-md h-[100px] border-4 border-yellow-400 rounded-xl animate-pulse"></div>
+            </div>
           </div>
-        </div>
-      )}
+        );
+      }
+    }
+    
+    return null;
+  };
+
+  return (
+    <>
+      <Dialog open={showModal} onOpenChange={setShowModal}>
+        <DialogContent className="sm:max-w-md bg-white/90 backdrop-blur-md">
+          {renderContent()}
+        </DialogContent>
+      </Dialog>
+
+      {/* Highlight elements */}
+      {getHighlightedElements()}
     </>
   );
 };
