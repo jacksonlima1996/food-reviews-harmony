@@ -32,12 +32,21 @@ const Landing = () => {
     navigate('/');
   };
 
+  const handleLogoClick = () => {
+    // Show the tour when logo is clicked, simulating an app update
+    setShowTour(true);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-screen-md mx-auto px-4 py-8">
         <header className="mb-8">
           <div className="flex items-center justify-between mb-2">
-            <h1 className="text-2xl font-bold flex items-center gap-2">
+            <h1 
+              className="text-2xl font-bold flex items-center gap-2 cursor-pointer" 
+              onClick={handleLogoClick}
+              aria-label="Food to Save - Click to see new features"
+            >
               <span className="text-food-orange">
                 <ShoppingBag size={28} />
               </span>
